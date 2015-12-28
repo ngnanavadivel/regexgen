@@ -1,23 +1,23 @@
 package com.objectapps.regexgen.model;
 
 public class Request {
-	private Config		config;
-	private Connection	connection;
+   private Config     config;
+   private Connection connection;
 
-	public Config getConfig() {
-		return config;
-	}
+   public Config getConfig() {
+      return config;
+   }
 
-	public Connection getConnection() {
-		return connection;
-	}
+   public Connection getConnection() {
+      return connection;
+   }
 
-	public void setConfig(Config config) {
-		this.config = config;
-	}
+   public void setConfig(Config config) {
+      this.config = config;
+   }
 
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
+   public void setConnection(Connection connection) {
+      this.connection = connection;
+   }
 
 }
