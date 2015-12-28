@@ -10,6 +10,10 @@ import java.util.Set;
 
 import com.objectapps.regexgen.util.Logger;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class RegexAnalyzer {
 
    class NumberTraits {

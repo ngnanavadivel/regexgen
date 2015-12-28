@@ -2,6 +2,10 @@ package com.objectapps.regexgen.model;
 
 import java.util.List;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class TableAnalysisResult {
    private List<ColumnAnalysisResult> columnResults;
    private String                     tableName;

@@ -8,6 +8,10 @@ import java.sql.Statement;
 
 import com.objectapps.regexgen.db.transformers.ResultTransformer;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class JDBCTemplate {
    private Connection connection;
    private String     connectionUri;

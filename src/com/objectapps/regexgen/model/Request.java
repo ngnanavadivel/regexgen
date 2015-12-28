@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.model;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class Request {
    private Config     config;
    private Connection connection;

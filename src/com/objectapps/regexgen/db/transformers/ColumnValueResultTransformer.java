@@ -4,6 +4,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class ColumnValueResultTransformer implements ResultTransformer<List<String>> {
 
    private List<String> values = new ArrayList<String>();

@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.util;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class Logger {
    private static final ThreadLocal<StringBuilder> holder = new ThreadLocal<StringBuilder>();
 

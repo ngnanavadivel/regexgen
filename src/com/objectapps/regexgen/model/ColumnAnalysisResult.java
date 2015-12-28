@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.model;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class ColumnAnalysisResult {
    private String  columnName;
    private boolean isMatching;

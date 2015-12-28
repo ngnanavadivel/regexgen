@@ -3,6 +3,10 @@ package com.objectapps.regexgen.core;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class RegexGenerator {
 
    private static final List<String> REGEX_RESERVED_CHARS = Arrays.asList(new String[] { ".", "+", "*", "(", ")", "?",

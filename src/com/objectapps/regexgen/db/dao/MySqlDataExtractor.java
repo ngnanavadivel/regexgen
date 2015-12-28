@@ -9,6 +9,10 @@ import com.objectapps.regexgen.db.util.JDBCTemplate;
 import com.objectapps.regexgen.db.util.MetadataQueryBuilder;
 import com.objectapps.regexgen.db.util.MySqlMetadataQueryBuilder;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class MySqlDataExtractor implements DataExtractor {
 
    private MetadataQueryBuilder queryBuilder = null;

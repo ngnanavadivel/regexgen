@@ -11,6 +11,10 @@ import com.objectapps.regexgen.model.ColumnAnalysisResult;
 import com.objectapps.regexgen.model.TableAnalysisResult;
 import com.objectapps.regexgen.util.Logger;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class RegexMatchFinder {
    public List<TableAnalysisResult> analyze(String connectionUri,
                                             String userName,

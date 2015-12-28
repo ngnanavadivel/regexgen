@@ -2,6 +2,10 @@ package com.objectapps.regexgen.model;
 
 import java.util.List;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class Response {
    private String                    logs;
    private String                    regex;

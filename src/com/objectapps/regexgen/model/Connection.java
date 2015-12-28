@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.model;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class Connection {
    private String password;
    private String uri;

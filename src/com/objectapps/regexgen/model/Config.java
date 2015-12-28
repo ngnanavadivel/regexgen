@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.model;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class Config {
    private long   rowLimit;
    private String samples;

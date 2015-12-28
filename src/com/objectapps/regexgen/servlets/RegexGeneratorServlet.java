@@ -21,6 +21,10 @@ import com.objectapps.regexgen.model.Response;
 import com.objectapps.regexgen.model.TableAnalysisResult;
 import com.objectapps.regexgen.util.Logger;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public class RegexGeneratorServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
 

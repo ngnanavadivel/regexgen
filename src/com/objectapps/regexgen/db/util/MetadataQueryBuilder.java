@@ -1,5 +1,9 @@
 package com.objectapps.regexgen.db.util;
 
+/**
+ * @author Nataraj Gnanavadivel
+ *
+ */
 public interface MetadataQueryBuilder {
    String getQueryToListAllColumns(String tableName);
 
