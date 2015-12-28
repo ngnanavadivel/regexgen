@@ -3,9 +3,6 @@ package com.objectapps.regexgen.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +28,8 @@ public class RegexGeneratorServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+	@Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		Logger logger = Logger.instance();
 		PrintWriter writer = response.getWriter();
@@ -82,7 +80,8 @@ public class RegexGeneratorServlet extends HttpServlet {
 
 	
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+	@Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		doGet(request, response);
 	}

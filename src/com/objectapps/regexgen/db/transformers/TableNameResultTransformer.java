@@ -9,6 +9,11 @@ public class TableNameResultTransformer implements ResultTransformer<List<String
 	List<String> results = new ArrayList<String>();
 
 	@Override
+	public List<String> getResults() {
+		return results;
+	}
+
+	@Override
 	public void transform(ResultSet rs) {
 		try {
 			if (rs != null) {
@@ -19,11 +24,6 @@ public class TableNameResultTransformer implements ResultTransformer<List<String
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public List<String> getResults() {
-		return results;
 	}
 
 }

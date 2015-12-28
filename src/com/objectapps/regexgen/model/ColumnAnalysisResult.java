@@ -5,28 +5,28 @@ public class ColumnAnalysisResult {
 	private boolean	isMatching;
 	private double	matchPercentage;
 
-	public double getMatchPercentage() {
-		return matchPercentage;
-	}
-
-	public void setMatchPercentage(double matchPercentage) {
-		this.matchPercentage = matchPercentage;
-	}
-
 	public String getColumnName() {
 		return columnName;
 	}
 
-	public void setColumnName(String columnName) {
-		this.columnName = columnName;
+	public double getMatchPercentage() {
+		return matchPercentage;
 	}
 
 	public boolean isMatching() {
 		return isMatching;
 	}
 
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
+	}
+
 	public void setMatching(boolean isMatching) {
 		this.isMatching = isMatching;
+	}
+
+	public void setMatchPercentage(double matchPercentage) {
+		this.matchPercentage = matchPercentage;
 	}
 
 	@Override

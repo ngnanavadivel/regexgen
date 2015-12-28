@@ -9,11 +9,11 @@ import java.sql.Statement;
 import com.objectapps.regexgen.db.transformers.ResultTransformer;
 
 public class JDBCTemplate {
-	private String		connectionUri;
-	private String		userName;
-	private String		password;
 	private Connection	connection;
+	private String		connectionUri;
+	private String		password;
 	private ResultSet	resultSet;
+	private String		userName;
 
 	public JDBCTemplate(String uri, String userName, String password) {
 		this.connectionUri = uri;
@@ -21,14 +21,24 @@ public class JDBCTemplate {
 		this.password = password;
 	}
 
-	public Connection openConnection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(connectionUri, userName, password);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void closeConnection() {
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return connection;
+	}
+
+	public void closeResultSet() {
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public ResultSet executeQuery(String query, ResultTransformer<?> transformer) {
@@ -54,24 +64,14 @@ public class JDBCTemplate {
 		return records;
 	}
 
-	public void closeResultSet() {
-		if (resultSet != null) {
-			try {
-				resultSet.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public Connection openConnection() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connection = DriverManager.getConnection(connectionUri, userName, password);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	}
-
-	public void closeConnection() {
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		return connection;
 	}
 
 }

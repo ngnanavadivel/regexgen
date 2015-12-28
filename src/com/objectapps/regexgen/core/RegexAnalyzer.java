@@ -12,6 +12,14 @@ import com.objectapps.regexgen.util.Logger;
 
 public class RegexAnalyzer {
 
+   class NumberTraits {
+      public boolean allAreDecimated;
+      public boolean allAreNumbers = true;
+      public int     decimalIndex  = -1;
+      public boolean isDecimated;
+      public boolean startsWithPlusOrMinus;
+   }
+
    private String[] samples = null;
 
    public RegexAnalyzer(String[] samples) {
@@ -95,57 +103,6 @@ public class RegexAnalyzer {
       return expressions;
    }
 
-   private List<Integer> findMatchingCharsInAllSamples(String[] samples) {
-      List<Integer> matchingIndices = new ArrayList<Integer>();
-      int length = getSizeOfSmallest(samples);
-      if (length != -1) {
-         for (int j = 0; j < length; ++j) {
-            boolean isAPatternBreak = false;
-            for (int i = 1; i < samples.length; ++i) {
-               if (samples[i].charAt(j) != samples[0].charAt(j)) {
-                  isAPatternBreak = true;
-                  break;
-               }
-            }
-            if (!isAPatternBreak) {
-               matchingIndices.add(j);
-            }
-         }
-      }
-      Logger.instance().log("Matching Indices : " + matchingIndices);
-      return matchingIndices;
-   }
-
-   private int getSizeOfSmallest(String[] samples) {
-      int length = -1;
-      if (samples != null && samples.length > 0) {
-         length = samples[0].length();
-         for (int i = 1; i < samples.length; ++i) {
-            int currSampleLength = samples[i].length();
-            if (currSampleLength < length) {
-               length = currSampleLength;
-            }
-         }
-      }
-      Logger.instance().log("Smallest Sample's Size : " + length);
-      return length;
-   }
-
-   private boolean checkForSameSize(String[] samples) {
-
-      if (samples != null && samples.length > 0) {
-         int length = samples[0].length();
-         for (int i = 1; i < samples.length; ++i) {
-            if (samples[i].length() != length) {
-               return false;
-            }
-         }
-         return true;
-      } else {
-         throw new RuntimeException("Samples are empty!");
-      }
-   }
-
    private NumberTraits checkForNumbers(String[] samples) {
       NumberTraits traits = new NumberTraits();
       if (samples != null && samples.length > 0) {
@@ -181,12 +138,55 @@ public class RegexAnalyzer {
       return traits;
    }
 
-   class NumberTraits {
-      public boolean allAreNumbers = true;
-      public boolean startsWithPlusOrMinus;
-      public boolean isDecimated;
-      public boolean allAreDecimated;
-      public int     decimalIndex  = -1;
+   private boolean checkForSameSize(String[] samples) {
+
+      if (samples != null && samples.length > 0) {
+         int length = samples[0].length();
+         for (int i = 1; i < samples.length; ++i) {
+            if (samples[i].length() != length) {
+               return false;
+            }
+         }
+         return true;
+      } else {
+         throw new RuntimeException("Samples are empty!");
+      }
+   }
+
+   private List<Integer> findMatchingCharsInAllSamples(String[] samples) {
+      List<Integer> matchingIndices = new ArrayList<Integer>();
+      int length = getSizeOfSmallest(samples);
+      if (length != -1) {
+         for (int j = 0; j < length; ++j) {
+            boolean isAPatternBreak = false;
+            for (int i = 1; i < samples.length; ++i) {
+               if (samples[i].charAt(j) != samples[0].charAt(j)) {
+                  isAPatternBreak = true;
+                  break;
+               }
+            }
+            if (!isAPatternBreak) {
+               matchingIndices.add(j);
+            }
+         }
+      }
+      Logger.instance().log("Matching Indices : " + matchingIndices);
+      return matchingIndices;
+   }
+
+   private int getSizeOfSmallest(String[] samples) {
+      int length = -1;
+      if (samples != null && samples.length > 0) {
+         length = samples[0].length();
+         for (int i = 1; i < samples.length; ++i) {
+            int currSampleLength = samples[i].length();
+            if (currSampleLength < length) {
+               length = currSampleLength;
+            }
+         }
+      }
+      Logger.instance().log("Smallest Sample's Size : " + length);
+      return length;
    }
 
    public static void main(String[] args) {

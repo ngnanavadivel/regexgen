@@ -11,31 +11,12 @@ import com.objectapps.regexgen.db.util.MySqlMetadataQueryBuilder;
 
 public class MySqlDataExtractor implements DataExtractor {
 	
-	private JDBCTemplate template = null;
 	private MetadataQueryBuilder queryBuilder = null;
+	private JDBCTemplate template = null;
 	
 	public MySqlDataExtractor(String connectionUri, String userName, String password) {
 		this.template = new JDBCTemplate(connectionUri, userName, password);
 		this.queryBuilder = new MySqlMetadataQueryBuilder();
-	}
-
-	@Override
-	public List<String> getTableNames() {
-		List<String> tables = null;
-		try {
-			TableNameResultTransformer transformer = new TableNameResultTransformer();
-			template.openConnection();
-			template.executeQuery(queryBuilder.getQueryToListAllTables(), transformer);	
-			tables = transformer.getResults();
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			template.closeResultSet();
-			template.closeConnection();
-		}
-		return tables;
 	}
 
 	@Override
@@ -56,7 +37,6 @@ public class MySqlDataExtractor implements DataExtractor {
 		}
 		return columns;
 	}
-	
 
 	@Override
 	public List<String> getColumnValues(String tableName, String columnName, long rowLimit) {
@@ -75,6 +55,26 @@ public class MySqlDataExtractor implements DataExtractor {
 			template.closeConnection();
 		}
 		return values;
+	}
+	
+
+	@Override
+	public List<String> getTableNames() {
+		List<String> tables = null;
+		try {
+			TableNameResultTransformer transformer = new TableNameResultTransformer();
+			template.openConnection();
+			template.executeQuery(queryBuilder.getQueryToListAllTables(), transformer);	
+			tables = transformer.getResults();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			template.closeResultSet();
+			template.closeConnection();
+		}
+		return tables;
 	}
 
 

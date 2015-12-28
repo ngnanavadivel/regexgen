@@ -132,22 +132,6 @@ public class RegexGenerator {
 		}
 	}
 
-	private static boolean isReservedMetaChar(char value) {
-		return REGEX_RESERVED_CHARS.contains(String.valueOf(value));
-	}
-
-	private static boolean isAlphabet(char value) {
-		return Character.isAlphabetic(value);
-	}
-
-	private static boolean isDigit(char value) {
-		return Character.isDigit(value);
-	}
-
-	private static boolean isWhiteSpace(char value) {
-		return Character.isWhitespace(value);
-	}
-
 	public static void main(String[] args) {
 		String date1 = "12/Nov/2015";
 		String date2 = "12/31/2015";
@@ -172,6 +156,22 @@ public class RegexGenerator {
 		System.out.println(String.format("%50s -> %s", phone2, new RegexGenerator(phone2).deriveRegex(null)));
 		System.out.println(String.format("%50s -> %s", phone3, new RegexGenerator(phone3).deriveRegex(null)));
 		System.out.println(String.format("%50s -> %s", phone4, new RegexGenerator(phone4).deriveRegex(null)));
+	}
+
+	private static boolean isAlphabet(char value) {
+		return Character.isAlphabetic(value);
+	}
+
+	private static boolean isDigit(char value) {
+		return Character.isDigit(value);
+	}
+
+	private static boolean isReservedMetaChar(char value) {
+		return REGEX_RESERVED_CHARS.contains(String.valueOf(value));
+	}
+
+	private static boolean isWhiteSpace(char value) {
+		return Character.isWhitespace(value);
 	}
 
 }

@@ -9,6 +9,11 @@ public class ColumnValueResultTransformer implements ResultTransformer<List<Stri
 	private List<String> values = new ArrayList<String>();
 
 	@Override
+	public List<String> getResults() {
+		return values ;
+	}
+
+	@Override
 	public void transform(ResultSet rs) {
 		try {
 			if (rs != null) {
@@ -19,11 +24,6 @@ public class ColumnValueResultTransformer implements ResultTransformer<List<Stri
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public List<String> getResults() {
-		return values ;
 	}
 
 }

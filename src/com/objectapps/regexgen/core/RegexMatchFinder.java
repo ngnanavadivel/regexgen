@@ -12,30 +12,6 @@ import com.objectapps.regexgen.model.TableAnalysisResult;
 import com.objectapps.regexgen.util.Logger;
 
 public class RegexMatchFinder {
-	public ColumnAnalysisResult analyzeColumn(List<String> columnValues, double thresholdPercentage, String regex) {
-		ColumnAnalysisResult result = new ColumnAnalysisResult();
-
-		if (columnValues != null) {
-			int recordCount = columnValues.size();
-
-			int countOfMatches = 0;
-			Pattern pattern = Pattern.compile(regex);
-			for (int i = 0; i < recordCount; ++i) {
-				String value = columnValues.get(i);
-				Matcher matcher = pattern.matcher(value);
-				if (matcher.matches()) {
-					Logger.instance().log(value + " is a match!");
-					countOfMatches++;
-				}
-			}
-			double matchingPercentage = (countOfMatches * 100.0 / recordCount);
-			result.setMatching(matchingPercentage >= thresholdPercentage);
-			result.setMatchPercentage(matchingPercentage);
-
-		}
-		return result;
-	}
-
 	public List<TableAnalysisResult> analyze(	String connectionUri,
 												String userName,
 												String password,
@@ -67,6 +43,30 @@ public class RegexMatchFinder {
 			}
 		}
 
+		return result;
+	}
+
+	public ColumnAnalysisResult analyzeColumn(List<String> columnValues, double thresholdPercentage, String regex) {
+		ColumnAnalysisResult result = new ColumnAnalysisResult();
+
+		if (columnValues != null) {
+			int recordCount = columnValues.size();
+
+			int countOfMatches = 0;
+			Pattern pattern = Pattern.compile(regex);
+			for (int i = 0; i < recordCount; ++i) {
+				String value = columnValues.get(i);
+				Matcher matcher = pattern.matcher(value);
+				if (matcher.matches()) {
+					Logger.instance().log(value + " is a match!");
+					countOfMatches++;
+				}
+			}
+			double matchingPercentage = (countOfMatches * 100.0 / recordCount);
+			result.setMatching(matchingPercentage >= thresholdPercentage);
+			result.setMatchPercentage(matchingPercentage);
+
+		}
 		return result;
 	}
 

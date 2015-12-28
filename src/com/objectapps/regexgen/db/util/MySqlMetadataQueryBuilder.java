@@ -3,13 +3,13 @@ package com.objectapps.regexgen.db.util;
 public class MySqlMetadataQueryBuilder implements MetadataQueryBuilder {
 
 	@Override
-	public String getQueryToListAllTables() {
-		return "SHOW  TABLES";
+	public String getQueryToListAllColumns(String tableName) {
+		return "SHOW COLUMNS FROM " + tableName;
 	}
 
 	@Override
-	public String getQueryToListAllColumns(String tableName) {
-		return "SHOW COLUMNS FROM " + tableName;
+	public String getQueryToListAllTables() {
+		return "SHOW  TABLES";
 	}
 
 	@Override
