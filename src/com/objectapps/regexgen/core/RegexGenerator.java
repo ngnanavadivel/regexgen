@@ -5,8 +5,8 @@ import java.util.List;
 
 public class RegexGenerator {
 
-	private static final List<String>	REGEX_RESERVED_CHARS	= Arrays
-			.asList(new String[] { ".", "+", "*", "(", ")", "?", "{", "}", "\\", "-", "^", "$" });
+	private static final List<String>	REGEX_RESERVED_CHARS	= Arrays.asList(new String[] { ".", "+", "*", "(", ")",
+			"?", "{", "}", "\\", "-", "^", "$" });
 	/*
 	 * Flags to mark whether the current and last character parsed are a Digit |
 	 * Alphabet | Whitespace | Special character
@@ -39,7 +39,7 @@ public class RegexGenerator {
 			for (int i = 0; i < size; ++i) {
 
 				char token = value.charAt(i);
-				if (indicesToRetain  != null && indicesToRetain.contains(i)) {
+				if (indicesToRetain != null && indicesToRetain.contains(i)) {
 					if (repetitions > 0) {
 						pattern.append(String.format("{%d}", repetitions + 1));
 						repetitions = 0;
@@ -112,7 +112,7 @@ public class RegexGenerator {
 		currentCharAWhiteSpace = false;
 		currentCharASpecial = false;
 	}
-	
+
 	private void resetLastCharFlags() {
 		lastCharADigit = false;
 		lastCharAnAlphabet = false;
@@ -147,7 +147,7 @@ public class RegexGenerator {
 	private static boolean isWhiteSpace(char value) {
 		return Character.isWhitespace(value);
 	}
-	
+
 	public static void main(String[] args) {
 		String date1 = "12/Nov/2015";
 		String date2 = "12/31/2015";
