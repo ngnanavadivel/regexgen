@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<link rel="stylesheet" href="css/w3.css">
+<script src="js/angular.min.js"></script>
+<head>
+<style>
+input {
+	font-size: 10pt;
+}
+
+html, body {
+	height: 100%;
+	font-family: Segoe UI;
+}
+
+table.response th td {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+table.response tr:nth-child(odd) {
+	background-color: #f1f1f1;
+}
+
+table.response tr:nth-child(even) {
+	background-color: #ffffff;
+}
+</style>
+</head>
+<body ng-app="myApp" ng-controller="formController"
+	style="padding: 10px;">
+	<table>
+		<tr>
+			<td
+				style="background: rgb(135, 61, 135); color: white; padding: 5px;"><h4>Regex
+					Generator / Data Discovery Aid!</h4></td>
+		</tr>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th width="15%"></th>
+				<th width="30%"></th>
+				<th width="54%"></th>
+			</tr>
+		</thead>
+		<tr>
+			<td>URL</td>
+			<td><input type="text" ng-model="request.connection.uri"
+				style="width: 99%"
+				placeholder="jdbc:mysql://localhost:3306/schema"></td>
+			<td rowspan="7" style="border: solid grey 1px">
+				<div style="overflow: scroll; width: 99%; height: 99%">
+					<span> Regex : <span
+						style="color: green; font-family: courier new;">{{response.regex}}</span>
+					</span><br>
+					<table class="response" ng-repeat="table in response.results">
+						<thead>
+							<tr>
+								<th>Table / Column</th>
+								<th align="center">Matching %</th>
+								<th align="center">Satify Threshold?</th>
+							</tr>
+							<tr ng-repeat="col in table.columnResults">
+								<td><span style="color: rgb(39, 48, 148)">{{table.tableName}}</span>-<span
+									style="color: orange">{{col.columnName}}</span></td>
+								<td align="center">{{col.matchPercentage}}</td>
+								<td align="center"><img src="images/tick.png" ng-if="col.matching"
+									width="12px" height="12px" /><img src="images/wrong.png"
+									ng-if="!col.matching" width="12px" height="12px" /></td>
+							</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>User</td>
+			<td><input type="text" ng-model="request.connection.userName"
+				placeholder="db.user.name"></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="text" ng-model="request.connection.password"
+				placeholder="db.password"></td>
+		</tr>
+		<tr>
+			<td>Row Limit</td>
+			<td><input type="text" ng-model="request.config.rowLimit"
+				placeholder="Row Count"></td>
+		</tr>
+		<tr>
+			<td>Matching Threshold</td>
+			<td><input type="text"
+				ng-model="request.config.thresholdPercentage"
+				placeholder="(0 - 100)"></td>
+		</tr>
+		<tr>
+			<td>Samples</td>
+			<td><textarea rows="10" ng-model="request.config.samples"
+					placeholder="Key In or Paste samples here."></textarea></td>
+		</tr>
+		<tr>
+			<td>
+				<button type="submit" ng-click="postIt()">Analyze DB!</button>
+			</td>
+			<td><img src="images/spinner.gif" ng-show="loading"
+				style="width: 40px; height: 40px" /></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<h3>Server Logs</h3> <textarea
+					style="overflow: scroll; width: 100%; height: 100%; font-family: courier new; font-size: 8pt"
+					rows="40">
+					{{response.logs}}
+				</textarea>
+			</td>
+		</tr>
+	</table>
+</body>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('formController', function($scope, $http) {
+		$scope.response = {};
+		$scope.loading = false;
+		$scope.postIt = function() {
+			$scope.loading = true;
+			$http.post("http://localhost:7070/regexgen/generate",
+					$scope.request).success(function(data, status) {
+				$scope.response = data;
+			})
+			.catch(function (err) {
+			      // Log error somehow.
+		    })
+		    .finally(function () {
+		      // Hide loading spinner whether our call succeeded or failed.
+		      $scope.loading = false;
+		    });
+		}
+	});
+</script>
+</html>

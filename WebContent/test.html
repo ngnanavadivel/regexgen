@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/jquery-1.11.3.min.js"></script>
+<style>
+td {
+	font-size: 14pt;
+	font-family: Courier New;
+}
+
+th {
+	font-size: 16pt;
+	font-family: Segoe UI;
+	font-weight: bold;
+	color: rgb(64, 0, 128)
+}
+
+table, th, td {
+	border: 1px solid orange;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+#btnSubmit {
+	font-size: 12pt;
+	font-family: Courier New;
+}
+</style>
+</head>
+<body>
+	<h1>Regular Expression Generator</h1>
+	<input id="btnSubmit" type="button" style="padding: 10px"
+		value="Generate RegExp!">
+	<br />
+	<br />
+	<table style="width: 99%; height: 99%" border="1">
+		<thead>
+			<tr>
+				<th width="35%">Samples</th>
+				<th width="65%">Regular Expression(s)</th>
+			</tr>
+		</thead>
+		<tr>
+			<td><p>Type or paste the values one by one in the box below:</p>
+				<textarea rows="15" cols="60" name="samples" id="samples"></textarea></td>
+			<td id="expr" name="expr"></td>
+		</tr>
+	</table>
+
+
+</body>
+<script type="text/javascript">
+	$("#btnSubmit").click(function() {
+		$("#expr").html('');
+		$.ajax({
+			type : 'POST',
+			url : "http://localhost:7070/regexgen/test",
+			contentType : 'application/x-www-form-urlencoded',
+			data : $.param({
+				'samples' : $("#samples").val()
+			}),
+			success : function(data) {
+				$("#expr").html(data);
+			}
+		});
+	});
+</script>
+</html>
