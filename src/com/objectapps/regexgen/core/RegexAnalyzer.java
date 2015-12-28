@@ -24,21 +24,34 @@ public class RegexAnalyzer {
 		if (samples != null && samples.length > 0) {
 			StringBuilder pattern = new StringBuilder();
 
+			// check if all the samples are of same length.
 			boolean sameSize = checkForSameSize(samples);
 
+			// check whether all the sample values represent Numbers.
 			NumberTraits traits = checkForNumbers(samples);
 			if (traits.allAreNumbers) {
 
+				// Accommodate Signed numbers. (Negative values).
 				if (traits.startsWithPlusOrMinus) {
 					pattern.append("-?");
 				}
 
+				// Check if any of the samples(numbers) have '.' in them.
 				if (traits.isDecimated) {
+					// Check if all the samples have '.' in them.
 					if (traits.allAreDecimated) {
+						// Check the value of decimalIndex. If it is anything other than -1,
+						// which indicates that all the samples have the '.' in the same index.
 						if (traits.decimalIndex != -1) {
+							// Though all samples have a '.' in the same index,
+							// only if all of them are of same size, we could KEEP the '.' as part of the Regex.
 							if (sameSize) {
-								// all samples are decimated at the same place
-								// yet all samples are of same size.
+								// '.' is now part of the Regex.
+								// The real number's Characteristic and Mantissa parts are arrived as follows:
+								// Characteristic Part's Length = decimalIndex (When numbers are unsigned) otherwise
+								// decimalIndex - 1 (If Signed.)
+								// Mantissa Part's Length = Length of Sample - decimalIndex - 1 (As all dots are at same
+								// Index, we can ignore Signed Number's Impact.)
 								pattern.append(String.format("\\d{%d}\\.\\d{%d}", (traits.startsWithPlusOrMinus
 																												? traits.decimalIndex
 																													- 1
@@ -48,9 +61,9 @@ public class RegexAnalyzer {
 								// all samples are decimated at the same place
 								// but mantissa size varies.
 								pattern.append(String.format("\\d{%d}\\.\\d+", (traits.startsWithPlusOrMinus
-																											? traits.decimalIndex
-																												- 1
-																											: traits.decimalIndex)));
+																												? traits.decimalIndex
+																													- 1
+																												: traits.decimalIndex)));
 							}
 						} else {
 							// all samples are decimated but at random
@@ -66,17 +79,19 @@ public class RegexAnalyzer {
 				} else {
 					// None of them are decimated.
 					pattern.append("\\d" + (sameSize
-													? String.format("{%d}", (traits.startsWithPlusOrMinus
-																											? samples[0]
-																													.length()
-																												- 1
-																											: samples[0]
-																													.length()))
-													: "+"));
+														? String.format("{%d}", (traits.startsWithPlusOrMinus
+																												? samples[0]
+																														.length()
+																													- 1
+																												: samples[0]
+																														.length()))
+														: "+"));
 				}
 				expressions.add(pattern.toString());
 				return expressions;
-			} // Processing samples for Numbers is done.
+			} 
+			// Processing samples for Numbers is done.
+			// If we are here, then few of the samples are NOT Numbers.
 			List<Integer> indicesToRetain = findMatchingCharsInAllSamples(samples);
 
 			for (String sample : samples) {
@@ -173,11 +188,11 @@ public class RegexAnalyzer {
 	}
 
 	class NumberTraits {
-		public boolean	allAreNumbers = true;
+		public boolean	allAreNumbers	= true;
 		public boolean	startsWithPlusOrMinus;
 		public boolean	isDecimated;
 		public boolean	allAreDecimated;
-		public int		decimalIndex = -1;
+		public int		decimalIndex	= -1;
 	}
 
 	public static void main(String[] args) {
@@ -200,8 +215,8 @@ public class RegexAnalyzer {
 		samples = new String[] { "102983129", "014210290", "191820392", "238472998", "293842930" };
 		System.out.println("\n\n" + Arrays.toString(samples));
 		System.out.println(new RegexAnalyzer(samples).generateRegex());
-		
-		samples = new String[] { "\"102983129", "\"014210290"};
+
+		samples = new String[] { "\"102983129", "\"014210290" };
 		System.out.println("\n\n" + Arrays.toString(samples));
 		System.out.println(new RegexAnalyzer(samples).generateRegex());
 	}
